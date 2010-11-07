@@ -53,41 +53,40 @@
     </configuration>
   </configurations>
   <assetFile uri="Document1.dae" referenced="False" />
-  <assetFile uri="cache-grid-0fc80ce6-35f4-464b-9d95-58587891388a.dae" referenced="False" />
-  <assetFile uri="cache-grid-5281d0ea-276a-4410-b3ec-58c877889743.dae" referenced="True" />
-  <activeAssetCollection uri="cache-grid-0fc80ce6-35f4-464b-9d95-58587891388a.dae" />
+  <assetFile uri="cache-grid-693294fe-388a-4f1b-8dde-631fe567fe5d.dae" referenced="True" />
+  <activeAssetCollection uri="Document1.dae" />
   <customConfigurations>
     <FXComposer.Scene.Services.FXRenderPortService>
       <defaultScene sceneUri="Document1.dae#DefaultScene" />
       <camera type="Top" scene="Document1.dae#DefaultScene">
-        <focallength>1.568499</focallength>
+        <focallength>2.335345</focallength>
         <fov>40</fov>
         <zoomrect>0 0 1 1</zoomrect>
-        <viewtransform>1 0 0 0 0 3.576278E-07 -0.9999998 0 0 0.9999998 3.576278E-07 0 0 1.618509 -3.192703E-08 1 </viewtransform>
+        <viewtransform>1 0 0 0 0 5.960463E-08 -0.9999998 0 0 0.9999998 5.960463E-08 0 0 2.285345 0.1 1 </viewtransform>
       </camera>
       <camera type="Front" scene="Document1.dae#DefaultScene">
-        <focallength>1.106139</focallength>
+        <focallength>2.335345</focallength>
         <fov>40</fov>
         <zoomrect>0 0 1 1</zoomrect>
-        <viewtransform>1 0 0 0 0 1 0 0 0 0 1 0 0 0.05000002 1.106148 1 </viewtransform>
+        <viewtransform>1 0 0 0 0 1 -7.648382E-10 0 0 7.648382E-10 1 0 0 -0.05000001 2.435345 1 </viewtransform>
       </camera>
       <camera type="Right" scene="Document1.dae#DefaultScene">
-        <focallength>1.832681</focallength>
+        <focallength>2.335345</focallength>
         <fov>40</fov>
         <zoomrect>0 0 1 1</zoomrect>
-        <viewtransform>5.960464E-08 0 -0.9999998 0 0 1 0 0 0.9999998 0 5.960464E-08 0 1.832681 0.05000001 0 1 </viewtransform>
+        <viewtransform>5.960463E-08 0 -0.9999998 0 0 1 0 0 0.9999998 0 5.960463E-08 0 2.335345 -0.05000001 0.1 1 </viewtransform>
       </camera>
       <camera type="Perspective" scene="Document1.dae#DefaultScene">
-        <focallength>10.66439</focallength>
+        <focallength>5.4323</focallength>
         <fov>40</fov>
         <zoomrect>0 0 1 1</zoomrect>
-        <viewtransform>-0.8828882 8.447595E-07 0.4695831 0 -0.2163968 -0.8874906 -0.4068575 0 0.4167501 -0.4608259 0.783555 0 4.444411 -4.86443 8.356142 1 </viewtransform>
+        <viewtransform>0.8357282 -7.832892E-07 -0.5491436 0 -0.2281361 0.9096204 -0.3471961 0 0.4995126 0.4154409 0.760195 0 2.713511 2.206819 4.229665 1 </viewtransform>
       </camera>
       <renderPort name="Render" />
     </FXComposer.Scene.Services.FXRenderPortService>
     <FXComposer.Scene.Services.FXSceneService>
       <grid_settings sceneUri="Document1.dae#DefaultScene">
-        <show_grid value="False" />
+        <show_grid value="True" />
         <axes_color value="0, 0, 0, 1" />
         <size value="17.32051" />
         <major_ticks_color value="0.25, 0.25, 0.25, 1" />
@@ -95,7 +94,7 @@
         <ticks_color value="0.425, 0.425, 0.425, 1" />
         <ticks_interval_in_units value="0.3464102" />
       </grid_settings>
-      <background_color color="0.0983 0.175 0.283 0" />
+      <background_color color="0.5 0.5 0.5 0" />
     </FXComposer.Scene.Services.FXSceneService>
   </customConfigurations>
 </project>

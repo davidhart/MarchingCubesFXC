@@ -1,14 +1,30 @@
 float4x4 WorldViewProj : WorldViewProjection;
 
+#define MAX_BLOBS 5
+
+struct Blob
+{
+	float3 Position;
+	float Radius;
+	float3 RotationSpeed;
+};
+
 cbuffer cbUserChanges
 {
-    float Threshold  <
-        string UIWidget = "slider";
-        float UIMin = 0.00f;
-        float UIMax = 3.00f;
-        float UIStep = 0.05f;
-        string UIName =  "Radius";
-    > = 1.0f;
+	float Threshold < string UIWidget = "Slider";
+					  float UIMin = 0.5f;
+					  float UIMax = 100.0f;
+					  float UIStep = 0.5f; > = 5;
+	
+	int NumBlobs < string UIWidget = "Slider";
+					int UIMin = 0;
+					int UIMax = MAX_BLOBS;
+					int UIStep = 1; > = 2;
+					  
+	Blob blobs[MAX_BLOBS];
+	
+	float Time : TIME;
+	float AnimationSpeed;
 };
 
 struct VS_INPUT
@@ -24,35 +40,25 @@ struct GS_INPUT
 struct PS_INPUT
 {
 	float4 Pos : SV_POSITION;
-	float3 Norm : NORMAL;
+	float3 Normal : NORMAL;
 };
-
-const float3 vertDecals[8] = 
-{
-	float3 (0.0f, 0.0f, 0.0f),
-	float3 (1.0f, 0.0f, 0.0f),
-	float3 (1.0f, 1.0f, 0.0f),
-	float3 (0.0f, 1.0f, 0.0f),
-	float3 (0.0f, 0.0f, 1.0f),
-	float3 (1.0f, 0.0f, 1.0f),
-	float3 (1.0f, 1.0f, 1.0f),
-	float3 (0.0f, 1.0f, 1.0f),
-};
-
-float3 cubePos(int i, float3 pos0)
-{
-	return pos0 + vertDecals[i]*0.1f;
-}
-
-float sampleField(int i, float3 pos0)
-{
-	float3 pos = cubePos(i, pos0);
-	return pos.x*pos.x+pos.y*pos.y+pos.z*pos.z;
-}
 
 tbuffer EdgeTable
 {
-	const uint Edges[256] =
+	const float3 vertDecals[8] < string UIWidget = "None"; > = 
+	{
+		float3 (0.0f, 0.0f, 0.0f),
+		float3 (1.0f, 0.0f, 0.0f),
+		float3 (1.0f, 1.0f, 0.0f),
+		float3 (0.0f, 1.0f, 0.0f),
+		float3 (0.0f, 0.0f, 1.0f),
+		float3 (1.0f, 0.0f, 1.0f),
+		float3 (1.0f, 1.0f, 1.0f),
+		float3 (0.0f, 1.0f, 1.0f),
+	};
+
+	
+	const uint Edges[256] < string UIWidget = "None"; > =
 	{
 		0x0  , 0x109, 0x203, 0x30a, 0x406, 0x50f, 0x605, 0x70c,
 		0x80c, 0x905, 0xa0f, 0xb06, 0xc0a, 0xd03, 0xe09, 0xf00,
@@ -88,7 +94,7 @@ tbuffer EdgeTable
 		0x70c, 0x605, 0x50f, 0x406, 0x30a, 0x203, 0x109, 0x0
 	};
 	
-	const int TriTable[256][16] =
+	const int TriTable[256][16] < string UIWidget = "None"; > =
 	{{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
 	{0, 8, 3, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
 	{0, 1, 9, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
@@ -347,6 +353,64 @@ tbuffer EdgeTable
 	{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}};
 }
 
+float3 cubePos(int i, float3 pos0)
+{
+	return pos0 + vertDecals[i]*0.1f;
+}
+
+float3 blobPos(int n)
+{
+	float t = Time*AnimationSpeed;
+		
+	float3x3 XRotation;
+	float xr = t*blobs[n].RotationSpeed.x;
+	XRotation[0] = float3(1, 0, 0);
+	XRotation[1] = float3(0, cos(xr), sin(xr));
+	XRotation[2] = float3(0, -sin(xr), cos(xr));
+		
+	float3x3 YRotation;
+	float yr = t*blobs[n].RotationSpeed.y;
+	YRotation[0] = float3(cos(yr), 0, -sin(yr));
+	YRotation[1] = float3(0, 1, 0);
+	YRotation[2] = float3(sin(yr), 0, cos(yr));
+		
+	float3x3 ZRotation;
+	float zr = t*blobs[n].RotationSpeed.z;
+	ZRotation[0] = float3(cos(zr), sin(zr), 0);
+	ZRotation[1] = float3(-sin(zr), cos(zr), 0);
+	ZRotation[2] = float3(0, 0, 1);
+	
+	return mul(mul(mul(blobs[n].Position, ZRotation), YRotation), XRotation);
+}
+
+float3 GetNormal(float3 pos)
+{
+	float3 normal = float3(0, 0, 0);
+	for (int n = 0; n < NumBlobs; ++n)
+	{
+		float3 bPos = blobPos(n);
+		float3 a = pos-bPos;
+		float f = a.x*a.x + a.y*a.y + a.z*a.z;
+		normal += 1/(f*f) * 2*(bPos - pos)*blobs[n].Radius;
+	}
+	
+	return normalize(normal);
+}
+
+float sampleField(int i, float3 pos0)
+{
+	float3 pos = cubePos(i, pos0);
+
+	float density = 0;
+	
+	for (int n = 0; n < NumBlobs; ++n)
+	{		
+		density += blobs[n].Radius*exp(1/(length(pos-blobPos(n))+0.0001f));
+	}
+
+	return density;
+}
+
 int edgeTableValue(int i)
 {
 	return Edges[i];
@@ -375,14 +439,14 @@ void mainGS( triangle GS_INPUT input[3], inout TriangleStream<PS_INPUT> stream )
 {
 	int cubeindex = 0;
 	float3 pos0 = input[0].Pos.xyz;
-	if (sampleField(0, pos0) < Threshold) cubeindex = cubeindex | 1;
-	if (sampleField(1, pos0) < Threshold) cubeindex = cubeindex | 2;
-	if (sampleField(2, pos0) < Threshold) cubeindex = cubeindex | 4;
-	if (sampleField(3, pos0) < Threshold) cubeindex = cubeindex | 8;
-	if (sampleField(4, pos0) < Threshold) cubeindex = cubeindex | 16;
-	if (sampleField(5, pos0) < Threshold) cubeindex = cubeindex | 32;
-	if (sampleField(6, pos0) < Threshold) cubeindex = cubeindex | 64;
-	if (sampleField(7, pos0) < Threshold) cubeindex = cubeindex | 128;
+	if (sampleField(0, pos0) > Threshold) cubeindex = cubeindex | 1;
+	if (sampleField(1, pos0) > Threshold) cubeindex = cubeindex | 2;
+	if (sampleField(2, pos0) > Threshold) cubeindex = cubeindex | 4;
+	if (sampleField(3, pos0) > Threshold) cubeindex = cubeindex | 8;
+	if (sampleField(4, pos0) > Threshold) cubeindex = cubeindex | 16;
+	if (sampleField(5, pos0) > Threshold) cubeindex = cubeindex | 32;
+	if (sampleField(6, pos0) > Threshold) cubeindex = cubeindex | 64;
+	if (sampleField(7, pos0) > Threshold) cubeindex = cubeindex | 128;
 	
 	float3 vertlist[12];
 	
@@ -420,17 +484,17 @@ void mainGS( triangle GS_INPUT input[3], inout TriangleStream<PS_INPUT> stream )
 		{
 			pos = float4(vertlist[triTableValue(cubeindex, i)], 1);
 			output.Pos = mul(pos, WorldViewProj);
-			output.Norm = normalize(float3(pos.x, pos.y, pos.z));
+			output.Normal = GetNormal(pos);
 			stream.Append(output);
 			
 			pos = float4(vertlist[triTableValue(cubeindex, i+1)], 1);
 			output.Pos = mul(pos, WorldViewProj);
-			output.Norm = normalize(float3(pos.x, pos.y, pos.z));
+			output.Normal = GetNormal(pos);
 			stream.Append(output);
 			
 			pos = float4(vertlist[triTableValue(cubeindex, i+2)], 1);
 			output.Pos = mul(pos, WorldViewProj);
-			output.Norm = normalize(float3(pos.x, pos.y, pos.z));
+			output.Normal = GetNormal(pos);
 			stream.Append(output);
 			
 			stream.RestartStrip();
@@ -443,14 +507,15 @@ void mainGS( triangle GS_INPUT input[3], inout TriangleStream<PS_INPUT> stream )
 }
 
 float4 mainPS(PS_INPUT input) : SV_TARGET
-{
-	float3 ambient = float3(0.3f, 0.3f, 0.3f);
-	float3 diffuse = dot(normalize(input.Norm.xyz), normalize(float3(0.3f, -1.0f, 0.4f))) 
-	* float3(0.6f, 0.6f, 0.6f);
+{	
+	float3 lightDir = normalize(float3(0.2f, -1.0f, -0.2f));
 	
-	float3 col = ambient + diffuse;
+	float diffuseAmt = dot(normalize(input.Normal), lightDir);
+	float4 diffuse = float4(float3(0.7f, 0.7f, 0.7f)*diffuseAmt, 1.0f);
 	
-	return float4(clamp(col, 0, 1),1);
+	float4 ambient = float4(0.3f, 0.3f, 0.3f, 1.0f);
+	
+	return clamp(ambient+diffuse, 0, 1);
 }
 
 DepthStencilState EnableDepth
@@ -462,6 +527,7 @@ DepthStencilState EnableDepth
 
 RasterizerState RasterizerSettings
 {
+	//FillMode = WIREFRAME;
     CullMode = BACK;
 };
 

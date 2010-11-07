@@ -7,9 +7,9 @@
 			<comments/>
 			<copyright/>
 		</contributor>
-		<created>2010-11-02T10:36:26Z</created>
+		<created>2010-11-04T12:30:12Z</created>
 		<keywords>FXComposer, NVIDIA</keywords>
-		<modified>2010-11-02T22:25:56Z</modified>
+		<modified>2010-11-04T19:57:10Z</modified>
 		<subject/>
 		<title/>
 		<unit/>
@@ -21,8 +21,8 @@
 				<matrix sid="">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
 				<extra type="orcaware">
 					<technique profile="NVIDIA">
-						<instance_visual_model id="ModelInstance" name="grid" url="cache-grid-0fc80ce6-35f4-464b-9d95-58587891388a.dae#Model">
-							<instance_visual_style url="cache-grid-0fc80ce6-35f4-464b-9d95-58587891388a.dae#VisualStyle"/>
+						<instance_visual_model id="ModelInstance" name="grid" url="#Model">
+							<instance_visual_style url="#VisualStyle"/>
 						</instance_visual_model>
 					</technique>
 				</extra>
@@ -33,81 +33,7 @@
 		</visual_scene>
 	</library_visual_scenes>
 	<library_effects>
-		<effect id="Effect" name="DefaultEffect">
-			<profile_COMMON>
-				<newparam sid="Script">
-					<semantic>STANDARDSGLOBAL</semantic>
-					<float>0.8</float>
-				</newparam>
-				<newparam sid="EmissionColor">
-					<semantic>EMISSION</semantic>
-					<float4>0 0 0 1</float4>
-				</newparam>
-				<newparam sid="AmbientColor">
-					<float4>0 0 0 1</float4>
-				</newparam>
-				<newparam sid="DiffuseColor">
-					<float4>1 1 1 1</float4>
-				</newparam>
-				<newparam sid="EnvironmentColor">
-					<float4>1 1 1 1</float4>
-				</newparam>
-				<newparam sid="Reflectivity">
-					<float>0.5</float>
-				</newparam>
-				<newparam sid="SpecularColor">
-					<semantic>SPECULAR</semantic>
-					<float4>1 1 1 1</float4>
-				</newparam>
-				<newparam sid="SpecularShininess">
-					<float>10</float>
-				</newparam>
-				<newparam sid="TransparentColor">
-					<float4>0 0 0 1</float4>
-				</newparam>
-				<newparam sid="Transparency">
-					<float>1</float>
-				</newparam>
-				<newparam sid="Index_Of_Refraction">
-					<float>1</float>
-				</newparam>
-				<technique sid="CommonProfile">
-					<phong>
-						<emission>
-							<param ref="EmissionColor"/>
-						</emission>
-						<ambient>
-							<param ref="AmbientColor"/>
-						</ambient>
-						<diffuse>
-							<param ref="DiffuseColor"/>
-						</diffuse>
-						<specular>
-							<param ref="SpecularColor"/>
-						</specular>
-						<shininess>
-							<param ref="SpecularShininess"/>
-						</shininess>
-						<reflective>
-							<param ref="EnvironmentColor"/>
-						</reflective>
-						<reflectivity>
-							<param ref="Reflectivity"/>
-						</reflectivity>
-						<transparent>
-							<param ref="TransparentColor"/>
-						</transparent>
-						<transparency>
-							<param ref="Transparency"/>
-						</transparency>
-						<index_of_refraction>
-							<param ref="Index_Of_Refraction"/>
-						</index_of_refraction>
-					</phong>
-				</technique>
-			</profile_COMMON>
-		</effect>
-		<effect id="Effect1" name="geometry">
+		<effect id="Effect" name="geometry">
 			<profile_COMMON>
 				<technique sid="__fxc_remove_profile_COMMON">
 					<constant/>
@@ -121,47 +47,68 @@
 		</effect>
 	</library_effects>
 	<library_materials>
-		<material id="DefaultMaterial" name="DefaultMaterial">
+		<material id="Material" name="geometry_Material">
 			<instance_effect url="#Effect">
-				<technique_hint platform="PC-D3D10" ref="CommonProfile"/>
-				<technique_hint platform="PC-D3D" ref="CommonProfile"/>
-				<setparam ref="EmissionColor">
-					<float4>0 0 0 1</float4>
-				</setparam>
-				<setparam ref="AmbientColor">
-					<float4>0 0 0 1</float4>
-				</setparam>
-				<setparam ref="DiffuseColor">
-					<float4>1 1 1 1</float4>
-				</setparam>
-				<setparam ref="EnvironmentColor">
-					<float4>1 1 1 1</float4>
-				</setparam>
-				<setparam ref="Reflectivity">
-					<float>0.5</float>
-				</setparam>
-				<setparam ref="SpecularColor">
-					<float4>1 1 1 1</float4>
-				</setparam>
-				<setparam ref="SpecularShininess">
-					<float>10</float>
-				</setparam>
-				<setparam ref="TransparentColor">
-					<float4>0 0 0 1</float4>
-				</setparam>
-				<setparam ref="Transparency">
-					<float>1</float>
-				</setparam>
-				<setparam ref="Index_Of_Refraction">
-					<float>1</float>
-				</setparam>
-			</instance_effect>
-		</material>
-		<material id="geometry" name="geometry_Material">
-			<instance_effect url="#Effect1">
 				<technique_hint platform="PC-D3D10" ref="Render"/>
 				<setparam ref="WorldViewProj">
-					<float4x4>4.00775 -3.36721e-007 -2.24481e-007 7.40345e-005 -2.86584e-007 2.92372 -1.63762e-007 0.121932 9.38723e-008 4.69361e-008 -1.67594 7.7762 5.96046e-008 2.98023e-008 -1.06415 10.6414</float4x4>
+					<float4x4>3.14749 -3.19154e-006 -2.06816 0.206907 -0.626799 2.49916 -0.953913 0.220362 -0.499543 -0.415466 -0.760241 5.48609 -0.499512 -0.415441 -0.760195 5.4876</float4x4>
+				</setparam>
+				<setparam ref="Threshold">
+					<float>3.6</float>
+				</setparam>
+				<setparam ref="NumBlobs">
+					<int>4</int>
+				</setparam>
+				<setparam ref="blobs[0].Position">
+					<float3>-0.4 -0.6 0.1</float3>
+				</setparam>
+				<setparam ref="blobs[0].Radius">
+					<float>0.3</float>
+				</setparam>
+				<setparam ref="blobs[0].RotationSpeed">
+					<float3>-1 -0.4 0</float3>
+				</setparam>
+				<setparam ref="blobs[1].Position">
+					<float3>0.4 0.3 0</float3>
+				</setparam>
+				<setparam ref="blobs[1].Radius">
+					<float>0.2</float>
+				</setparam>
+				<setparam ref="blobs[1].RotationSpeed">
+					<float3>0.2 0 1</float3>
+				</setparam>
+				<setparam ref="blobs[2].Position">
+					<float3>0.4 0.3 -0.2</float3>
+				</setparam>
+				<setparam ref="blobs[2].Radius">
+					<float>0.1</float>
+				</setparam>
+				<setparam ref="blobs[2].RotationSpeed">
+					<float3>0 -0.7 0.3</float3>
+				</setparam>
+				<setparam ref="blobs[3].Position">
+					<float3>0.1 0.4 0</float3>
+				</setparam>
+				<setparam ref="blobs[3].Radius">
+					<float>0.05</float>
+				</setparam>
+				<setparam ref="blobs[3].RotationSpeed">
+					<float3>0.4 0 0.2</float3>
+				</setparam>
+				<setparam ref="blobs[4].Position">
+					<float3>0 0 0</float3>
+				</setparam>
+				<setparam ref="blobs[4].Radius">
+					<float>0</float>
+				</setparam>
+				<setparam ref="blobs[4].RotationSpeed">
+					<float3>0 0 0</float3>
+				</setparam>
+				<setparam ref="Time">
+					<float>1118.51</float>
+				</setparam>
+				<setparam ref="AnimationSpeed">
+					<float>1</float>
 				</setparam>
 				<setparam ref="vertDecals[0]">
 					<float3>0 0 0</float3>
@@ -186,9 +133,6 @@
 				</setparam>
 				<setparam ref="vertDecals[7]">
 					<float3>0 1 1</float3>
-				</setparam>
-				<setparam ref="Threshold">
-					<float>0.75</float>
 				</setparam>
 				<setparam ref="TriTable[0]">
 					<int>-1</int>
@@ -12481,8 +12425,28 @@
 			</instance_effect>
 		</material>
 	</library_materials>
-	<library_geometries/>
 	<scene>
 		<instance_visual_scene url="#DefaultScene"/>
 	</scene>
+	<extra type="orcaware">
+		<technique profile="NVIDIA">
+			<library_visual_models>
+				<visual_model id="Model" name="grid">
+					<instance_visual_scene url="cache-grid-693294fe-388a-4f1b-8dde-631fe567fe5d.dae#Scene"/>
+					<visual_style_ref name="VisualStyle" url="#VisualStyle"/>
+				</visual_model>
+			</library_visual_models>
+			<library_visual_styles>
+				<visual_style id="VisualStyle" name="VisualStyle" scene="cache-grid-693294fe-388a-4f1b-8dde-631fe567fe5d.dae#Scene">
+					<owner ref="Node">
+						<swap_material symbol="obj_file_default_material" target="#Material">
+							<extra type="bind_object">
+								<technique profile="NVIDIA_FXCOMPOSER"/>
+							</extra>
+						</swap_material>
+					</owner>
+				</visual_style>
+			</library_visual_styles>
+		</technique>
+	</extra>
 </COLLADA>
