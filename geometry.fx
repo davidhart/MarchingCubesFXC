@@ -51,10 +51,10 @@ tbuffer EdgeTable
 		float3 (1.0f, 0.0f, 0.0f),
 		float3 (1.0f, 1.0f, 0.0f),
 		float3 (0.0f, 1.0f, 0.0f),
-		float3 (0.0f, 0.0f, 1.0f),
-		float3 (1.0f, 0.0f, 1.0f),
-		float3 (1.0f, 1.0f, 1.0f),
-		float3 (0.0f, 1.0f, 1.0f),
+		float3 (0.0f, 0.0f, -1.0f),
+		float3 (1.0f, 0.0f, -1.0f),
+		float3 (1.0f, 1.0f, -1.0f),
+		float3 (0.0f, 1.0f, -1.0f),
 	};
 
 	
@@ -429,13 +429,13 @@ int triTableValue(int i, int j)
 
 GS_INPUT mainVS( VS_INPUT input )
 {
-    GS_INPUT output;
+    GS_INPUT output = { {0,0,0,0}};
     output.Pos = float4(input.Pos,1);
     return output;
 }
 
 [maxvertexcount(16)]
-void mainGS( triangle GS_INPUT input[3], inout TriangleStream<PS_INPUT> stream )
+void mainGS( point GS_INPUT input[1], inout TriangleStream<PS_INPUT> stream )
 {
 	int cubeindex = 0;
 	float3 pos0 = input[0].Pos.xyz;
@@ -448,7 +448,8 @@ void mainGS( triangle GS_INPUT input[3], inout TriangleStream<PS_INPUT> stream )
 	if (sampleField(6, pos0) > Threshold) cubeindex = cubeindex | 64;
 	if (sampleField(7, pos0) > Threshold) cubeindex = cubeindex | 128;
 	
-	float3 vertlist[12];
+	float3 vertlist[12] = {{0,0,0},{0,0,0},{0,0,0},{0,0,0},{0,0,0},{0,0,0},
+	{0,0,0},{0,0,0},{0,0,0},{0,0,0},{0,0,0},{0,0,0}}; // MUST initialise this because of X4850 error
 	
 	if ((edgeTableValue(cubeindex) & 1) != 0)
 	  vertlist[0] =	vertexInterp(Threshold, cubePos(0, pos0), sampleField(0, pos0), cubePos(1, pos0), sampleField(1, pos0));

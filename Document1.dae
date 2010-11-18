@@ -9,7 +9,7 @@
 		</contributor>
 		<created>2010-11-04T12:30:12Z</created>
 		<keywords>FXComposer, NVIDIA</keywords>
-		<modified>2010-11-04T19:57:10Z</modified>
+		<modified>2010-11-17T16:30:01Z</modified>
 		<subject/>
 		<title/>
 		<unit/>
@@ -51,7 +51,7 @@
 			<instance_effect url="#Effect">
 				<technique_hint platform="PC-D3D10" ref="Render"/>
 				<setparam ref="WorldViewProj">
-					<float4x4>3.14749 -3.19154e-006 -2.06816 0.206907 -0.626799 2.49916 -0.953913 0.220362 -0.499543 -0.415466 -0.760241 5.48609 -0.499512 -0.415441 -0.760195 5.4876</float4x4>
+					<float4x4>3.72395 -2.01217e-006 0.562274 -0.056291 0.195375 2.41581 -1.29397 0.250225 0.131281 -0.476333 -0.86948 21.3028 0.131273 -0.476304 -0.869427 21.3043</float4x4>
 				</setparam>
 				<setparam ref="Threshold">
 					<float>3.6</float>
@@ -105,7 +105,7 @@
 					<float3>0 0 0</float3>
 				</setparam>
 				<setparam ref="Time">
-					<float>1118.51</float>
+					<float>1625.02</float>
 				</setparam>
 				<setparam ref="AnimationSpeed">
 					<float>1</float>

@@ -77,10 +77,10 @@
         <viewtransform>5.960463E-08 0 -0.9999998 0 0 1 0 0 0.9999998 0 5.960463E-08 0 2.335345 -0.05000001 0.1 1 </viewtransform>
       </camera>
       <camera type="Perspective" scene="Document1.dae#DefaultScene">
-        <focallength>5.4323</focallength>
+        <focallength>21.24115</focallength>
         <fov>40</fov>
         <zoomrect>0 0 1 1</zoomrect>
-        <viewtransform>0.8357282 -7.832892E-07 -0.5491436 0 -0.2281361 0.9096204 -0.3471961 0 0.4995126 0.4154409 0.760195 0 2.713511 2.206819 4.229665 1 </viewtransform>
+        <viewtransform>0.9887925 -5.066394E-07 0.1492962 0 0.07111078 0.8792807 -0.4709653 0 -0.1312731 0.4763036 0.8694263 0 -2.788383 10.06725 18.56768 1 </viewtransform>
       </camera>
       <renderPort name="Render" />
     </FXComposer.Scene.Services.FXRenderPortService>
@@ -94,7 +94,7 @@
         <ticks_color value="0.425, 0.425, 0.425, 1" />
         <ticks_interval_in_units value="0.3464102" />
       </grid_settings>
-      <background_color color="0.5 0.5 0.5 0" />
+      <background_color color="0.0789 0.0789 0.0789 0" />
     </FXComposer.Scene.Services.FXSceneService>
   </customConfigurations>
 </project>
